@@ -18,7 +18,6 @@ const requestHandler = (req,res)=>{
   
         })
         
-        
       }
       
      const readmessage =  fs.readFileSync('message.txt','utf8');

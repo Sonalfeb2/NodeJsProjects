@@ -1,6 +1,7 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-
+const bodyParser = require("body-parser"); //It is used to parse the body of incoming request .
+const adminRouter = require("./routes/admin")
+const shopRouter = require("./routes/shop")
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use((req, res, next) => {
@@ -13,16 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   console.log("I am in another Middleware");
 
 // });
-app.use("/add-product", (req, res, next) => {
-  res.send(
-    '<form action="/product" method="POST"> Add Product : <input type="text" name="title"/> Size : <input type="number" name="size"/><button type="submit">Click Me </button></form>'
-  );
-});
-app.post("/product", (req, res) => {
-  console.log(req.body);
-  res.redirect("/");
-});
-app.use("/", (req, res) => {
-  res.send("Hello From Express");
-});
+app.use('/admin',adminRouter);
+app.use('/shop',shopRouter)
+app.use((req,res)=>{
+  res.status(400).send('Page not Found')
+})
 app.listen(3000);
